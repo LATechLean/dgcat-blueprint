@@ -8,6 +8,11 @@ import Mathlib.Algebra.Homology.Monoidal
 import Mathlib.Algebra.Homology.ComplexShapeSigns
 import Mathlib.Algebra.Category.ModuleCat.Monoidal.Closed
 import Mathlib.Algebra.Category.ModuleCat.Colimits
+-- Mathlib prerequisites cited by the blueprint (checked by `checkdecls`).
+import Mathlib.Algebra.Homology.HomotopyCategory
+import Mathlib.Algebra.Homology.HomotopyCategory.HomComplex
+import Mathlib.Algebra.Homology.DerivedCategory.Basic
+import Mathlib.CategoryTheory.Localization.Predicate
 
 /-!
 # Differential graded categories
