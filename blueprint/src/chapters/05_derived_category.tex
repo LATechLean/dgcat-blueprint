@@ -1,0 +1,104 @@
+\chapter{The derived category of a dg-category}
+\label{ch:derived}
+
+This chapter is Keller \S 3.2 up to the definition, together with the comparison theorem
+that is the finish line of the first phase. Keller notes that from the definition alone it is
+not clear that $\Dcat(\cA)$ has small hom-sets or is additive; both facts are established
+classically through resolutions (Proposition~\ref{prop:resolutions}), which is why that
+proposition sits on the critical path even though model structures do not.
+
+\begin{definition}[Quasi-isomorphisms of dg-modules]
+\label{def:dg-qis}
+% planned: DgCat.DGModule.quasiIso
+\uses{def:dg-module-cat, def:dg-module-homology}
+$\qis$ is the class of morphisms of $\Ch(\cA)$ inducing isomorphisms on all
+$H^n(M(X))$. It is a multiplicative class containing the isomorphisms and closed under
+composition and retracts.
+\end{definition}
+
+\begin{definition}[The derived category]
+\label{def:dg-derived-category}
+% planned: DgCat.DerivedCategory, DgCat.DerivedCategory.Q
+\uses{def:dg-qis, def:localization}
+$\Dcat(\cA)$ is the localization of $\Ch(\cA)$ at $\qis$, with projection functor
+$Q : \Ch(\cA) \to \Dcat(\cA)$, constructed through mathlib's localization framework.
+\end{definition}
+
+\begin{lemma}[Localizing the homotopy category instead]
+\label{lem:derived-via-homotopy}
+% planned: DgCat.DerivedCategory.ofHomotopyCategory
+\uses{def:dg-derived-category, def:dg-module-homotopy-cat}
+Null-homotopic morphisms become zero in $\Dcat(\cA)$, so $Q$ factors through
+$\Hcat(\cA)$, and $\Dcat(\cA)$ is also the localization of $\Hcat(\cA)$ at the image of
+$\qis$.
+\end{lemma}
+\begin{proof}
+A null-homotopic map factors through a contractible complex, which is quasi-isomorphic to
+zero. Compare mathlib's proof of the same statement for complexes in an abelian category.
+\end{proof}
+
+\begin{definition}[Cofibrant and fibrant dg-modules]
+\label{def:cofibrant-fibrant}
+% planned: DgCat.DGModule.IsCofibrant, DgCat.DGModule.IsFibrant
+\uses{def:dg-module-cat, def:dg-qis}
+A dg-module $P$ is cofibrant if every morphism $P \to M$ factors through every surjective
+quasi-isomorphism $L \to M$; $I$ is fibrant if every morphism $L \to I$ extends along every
+injective quasi-isomorphism $L \to M$. Representables $X^{\wedge}$ are cofibrant.
+\end{definition}
+
+\begin{proposition}[Resolutions]
+\label{prop:resolutions}
+% planned: DgCat.DGModule.cofibrantResolution, DgCat.DGModule.fibrantResolution
+\uses{def:cofibrant-fibrant, def:dg-module-homotopy-cat, lem:dg-homotopy-yoneda}
+For every dg-module $M$ there is a quasi-isomorphism $\mathbf{p}M \to M$ with
+$\mathbf{p}M$ cofibrant and a quasi-isomorphism $M \to \mathbf{i}M$ with $\mathbf{i}M$
+fibrant. The projection $\Hcat(\cA) \to \Dcat(\cA)$ has a fully faithful left adjoint
+$M \mapsto \mathbf{p}M$ and a fully faithful right adjoint $M \mapsto \mathbf{i}M$
+(Keller, Proposition 3.1).
+\end{proposition}
+\begin{proof}
+\uses{lem:derived-via-homotopy}
+Keller's explicit construction (after Keller 1994, \S 3), by transfinite induction on
+semi-free filtrations; the alternative through the projective model structure
+(Chapter~\ref{ch:beyond}) is deferred. This is the largest single proof in the first phase.
+\end{proof}
+
+\begin{corollary}[Hom-sets in the derived category]
+\label{cor:derived-homs}
+% planned: DgCat.DerivedCategory.homEquiv
+\uses{prop:resolutions, def:dg-derived-category}
+$\Dcat(\cA)(L,M) \cong \Hcat(\cA)(\mathbf{p}L, M) \cong \Hcat(\cA)(L, \mathbf{i}M)$.
+In particular $\Dcat(\cA)$ has small hom-sets and is additive, and for an object $X$,
+$\Dcat(\cA)(X^{\wedge}, M[n]) \cong H^n M(X)$ (Keller (3)).
+\end{corollary}
+\begin{proof}
+\uses{lem:dg-homotopy-yoneda}
+Fully faithful adjoints; then Lemma~\ref{lem:dg-homotopy-yoneda} since $X^{\wedge}$ is
+cofibrant.
+\end{proof}
+
+\begin{theorem}[Comparison with the derived category of an algebra]
+\label{thm:ring-comparison}
+% planned: DgCat.DerivedCategory.ringComparison
+\uses{def:dg-derived-category, prop:dg-module-ring, def:mathlib-derived-category, cor:derived-homs}
+If $\cA = \cA_B$ is the one-object dg-category of a $k$-algebra $B$, then the isomorphism
+$\Ch(\cA) \cong \Ch(B)$ of Proposition~\ref{prop:dg-module-ring} identifies
+quasi-isomorphisms on both sides and induces an equivalence of categories
+$\Dcat(\cA) \simeq \Dcat(\Mod B)$ with mathlib's derived category, compatible with the
+projection functors.
+\end{theorem}
+\begin{proof}
+\uses{prop:dg-module-ring, def:localization}
+Both sides are localizations of isomorphic categories at corresponding classes of
+morphisms; the universal property of localization gives the equivalence. The content is in
+checking that the two notions of quasi-isomorphism match under
+Proposition~\ref{prop:dg-module-ring}, which is where a wrong sign or a wrong shift
+convention would surface.
+\end{proof}
+
+\begin{remark}
+This theorem is the acceptance test for the whole design. If the enriched-category
+definition of a dg-category, the transport-of-enrichment construction of $\Zz$, and the
+localization-based derived category did not reproduce mathlib's $\Dcat(\Mod B)$, the
+infrastructure would be of no use downstream.
+\end{remark}

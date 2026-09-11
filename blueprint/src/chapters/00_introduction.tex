@@ -1,0 +1,46 @@
+\chapter{Introduction}
+\label{ch:intro}
+
+This blueprint organizes a formalization, in Lean~4 and mathlib, of the foundations of
+differential graded (dg) categories, following Bernhard Keller's ICM~2006 survey
+\emph{On differential graded categories} (arXiv:math/0601185). The target of the
+first phase is the derived category $\Dcat(\cA)$ of a small dg-category $\cA$
+(Keller \S 3.2), together with the consistency theorem that, when $\cA$ is the
+one-object dg-category of an ordinary $k$-algebra $B$, $\Dcat(\cA)$ recovers mathlib's
+derived category of $B$-modules. That theorem is the test that the definitions are the
+right ones: infrastructure that fails it has no value.
+
+\section*{Design decisions}
+
+The design is fixed in advance and is not delegated to any tool.
+
+\begin{enumerate}
+\item A dg-category over a commutative ring $k$ is a category \emph{enriched}, in the
+  sense of mathlib's \texttt{EnrichedCategory}, over the monoidal category of cochain
+  complexes of $k$-modules, $\Ch(k) = \mathtt{CochainComplex\ (ModuleCat\ k)\ }\mathbb{Z}$.
+  Keller's Leibniz rule is then a consequence of composition being a chain map, not an
+  axiom to be stated.
+\item The functors $\Zz$ and $\Hz$ from complexes to modules are shown to be lax monoidal,
+  and the ordinary categories $\Zz(\cA)$ and $\Hz(\cA)$ are obtained by transporting the
+  enrichment along them (\texttt{TransportEnrichment}) and forgetting it
+  (\texttt{ForgetEnrichment}). No new axioms are checked by hand.
+\item Right dg-modules over $\cA$ are dg-functors $\cA^{\op} \to \Chdg(k)$, where the
+  dg-category $\Chdg(k)$ of complexes is built from mathlib's \texttt{CochainComplex.HomComplex}.
+\item The derived category is the localization of $\Ch(\cA) = \Zz(\Chdg(\cA))$ at
+  quasi-isomorphisms, using mathlib's localization framework
+  (\texttt{CategoryTheory.Localization}), not a bespoke construction.
+\end{enumerate}
+
+\section*{Conventions}
+
+Complexes are cochain complexes indexed by $\mathbb{Z}$, with differential of degree $+1$,
+as in Keller. Signs follow the Koszul rule; the opposite dg-category and the tensor product
+of dg-categories carry the signs recorded in Chapter~\ref{ch:dgcat}.
+Throughout, $k$ is a commutative ring and all dg-categories are small unless stated otherwise.
+
+\section*{Reading the graph}
+
+Nodes marked as already in mathlib are prerequisites, not deliverables. Nodes without a
+Lean declaration are planned; their intended names appear as comments in the source.
+The dependency graph is the work plan: a node is ready to be formalized when everything it
+uses is done.

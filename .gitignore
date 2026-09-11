@@ -1,0 +1,21 @@
+# Lean
+/.lake/
+*.olean
+*.ilean
+*.trace
+# blueprint build products
+/blueprint/web/
+/blueprint/print/
+/blueprint/src/*.aux
+/blueprint/src/*.log
+/blueprint/src/*.out
+/blueprint/src/*.toc
+/blueprint/src/*.fls
+/blueprint/src/*.fdb_latexmk
+/blueprint/src/*.synctex.gz
+/blueprint/src/*.paux
+/blueprint/src/*.bbl
+/blueprint/src/*.blg
+/blueprint/lean_decls
+# misc
+.DS_Store

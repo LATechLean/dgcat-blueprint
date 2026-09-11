@@ -1,0 +1,120 @@
+\chapter{Prerequisites in mathlib}
+\label{ch:prereq}
+
+Everything in this chapter exists in mathlib as of September 2026. The nodes are recorded so
+that the graph shows what the project rests on and so that API changes upstream are
+visible as broken edges.
+
+\begin{definition}[Cochain complexes of modules]
+\label{def:cochain-complex}
+\lean{CochainComplex}
+\mathlibok
+\leanok
+For a commutative ring $k$, $\Ch(k)$ denotes the category of $\mathbb{Z}$-indexed cochain
+complexes of $k$-modules, \texttt{CochainComplex (ModuleCat k) }$\mathbb{Z}$. Its objects are
+Keller's dg $k$-modules.
+\end{definition}
+
+\begin{theorem}[Monoidal structure on complexes]
+\label{thm:complexes-monoidal}
+\lean{HomologicalComplex.monoidalCategory}
+\mathlibok
+\leanok
+\uses{def:cochain-complex}
+$\Ch(k)$ is a monoidal category with the tensor product of complexes
+$(V \otimes W)^n = \bigoplus_{p+q=n} V^p \otimes W^q$ and differential
+$d_V \otimes 1 + 1 \otimes d_W$ with Koszul signs, and unit the complex $k$ in degree $0$.
+\end{theorem}
+
+\begin{definition}[Enriched categories]
+\label{def:enriched-category}
+\lean{CategoryTheory.EnrichedCategory}
+\mathlibok
+\leanok
+For a monoidal category $V$, a $V$-enriched category $\cC$ consists of a type of objects,
+hom-objects $\cC(X,Y) \in V$, identities $\mathbf{1} \to \cC(X,X)$, and compositions
+$\cC(X,Y) \otimes \cC(Y,Z) \to \cC(X,Z)$ satisfying unit and associativity axioms.
+\end{definition}
+
+\begin{definition}[Enriched functors]
+\label{def:enriched-functor}
+\lean{CategoryTheory.EnrichedFunctor}
+\mathlibok
+\leanok
+\uses{def:enriched-category}
+A $V$-enriched functor is a map on objects together with morphisms
+$\cC(X,Y) \to \cD(FX,FY)$ in $V$ compatible with identities and composition.
+\end{definition}
+
+\begin{definition}[Lax monoidal functors]
+\label{def:lax-monoidal}
+\lean{CategoryTheory.Functor.LaxMonoidal}
+\mathlibok
+\leanok
+A functor $F : V \to W$ between monoidal categories is lax monoidal if it carries
+structure maps $\mathbf{1} \to F\mathbf{1}$ and $FX \otimes FY \to F(X \otimes Y)$
+satisfying the usual coherence conditions.
+\end{definition}
+
+\begin{theorem}[Transport of enrichment]
+\label{thm:transport-enrichment}
+\lean{CategoryTheory.TransportEnrichment}
+\mathlibok
+\leanok
+\uses{def:enriched-category, def:lax-monoidal}
+A lax monoidal functor $F : V \to W$ turns a $V$-enriched category into a $W$-enriched
+category with the same objects and hom-objects $F(\cC(X,Y))$.
+\end{theorem}
+
+\begin{theorem}[Forgetting enrichment]
+\label{thm:forget-enrichment}
+\lean{CategoryTheory.ForgetEnrichment}
+\mathlibok
+\leanok
+\uses{def:enriched-category}
+A $V$-enriched category has an underlying ordinary category whose morphisms $X \to Y$ are
+the morphisms $\mathbf{1} \to \cC(X,Y)$ in $V$.
+\end{theorem}
+
+\begin{definition}[The Hom complex]
+\label{def:hom-complex}
+\lean{CochainComplex.HomComplex}
+\mathlibok
+\leanok
+\uses{def:cochain-complex}
+For cochain complexes $L, M$ in a preadditive category, $\Hom(L,M)$ is the complex whose
+degree-$n$ part consists of the families $(f^p : L^p \to M^{p+n})_p$ and whose
+differential is $d(f) = d_M \circ f - (-1)^n f \circ d_L$.
+\end{definition}
+
+\begin{definition}[Homotopy category of complexes]
+\label{def:homotopy-category}
+\lean{HomotopyCategory}
+\mathlibok
+\leanok
+\uses{def:cochain-complex}
+$\Hcat(B)$ is the quotient of $\Ch(B)$ by the ideal of morphisms homotopic to zero.
+\end{definition}
+
+\begin{definition}[Localization of categories]
+\label{def:localization}
+\lean{CategoryTheory.Functor.IsLocalization}
+\mathlibok
+\leanok
+Given a class of morphisms $W$ in a category $\cC$, a functor $L : \cC \to \cD$ is a
+localization of $\cC$ at $W$ if it inverts $W$ and is universal among such functors.
+mathlib provides both the universal property and a construction, together with
+criteria (calculus of fractions) for the localized category to have small hom-sets.
+\end{definition}
+
+\begin{definition}[Derived category of an abelian category]
+\label{def:mathlib-derived-category}
+\lean{DerivedCategory}
+\mathlibok
+\leanok
+\uses{def:cochain-complex, def:homotopy-category, def:localization}
+For an abelian category $\cB$, mathlib's $\Dcat(\cB)$ is the localization of
+$\Ch(\cB)$ at quasi-isomorphisms, equivalently the localization of $\Hcat(\cB)$; it
+carries a triangulated structure. In Chapter~\ref{ch:derived} this is the target of the
+comparison theorem when $\cB = \Mod B$.
+\end{definition}

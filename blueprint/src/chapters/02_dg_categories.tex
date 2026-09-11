@@ -1,0 +1,89 @@
+\chapter{dg-categories}
+\label{ch:dgcat}
+
+This chapter is Keller \S 2.2. The definition is the design decision on which the whole
+project rests; the examples are the sanity checks that the enrichment route reproduces
+the classical objects.
+
+\begin{definition}[dg-category]
+\label{def:dg-category}
+% planned: DgCat.DGCategory
+\uses{def:enriched-category, thm:complexes-monoidal}
+A dg-category over $k$ is a category enriched over $\Ch(k)$: a type of objects, a cochain
+complex $\cA(X,Y)$ of $k$-modules for each pair of objects, and chain maps
+$\cA(X,Y) \otimes \cA(Y,Z) \to \cA(X,Z)$ and $k \to \cA(X,X)$ satisfying the enriched
+unit and associativity axioms.
+\end{definition}
+
+\begin{lemma}[Leibniz rule]
+\label{lem:leibniz}
+% planned: DgCat.DGCategory.leibniz
+\uses{def:dg-category}
+In a dg-category, for $f \in \cA(Y,Z)^p$ and $g \in \cA(X,Y)^q$ one has
+$d(f g) = d(f)\, g + (-1)^p f\, d(g)$.
+\end{lemma}
+\begin{proof}
+\uses{thm:complexes-monoidal}
+Composition is a chain map out of the tensor product; unwinding the differential of
+$\cA(X,Y) \otimes \cA(Y,Z)$ from Theorem~\ref{thm:complexes-monoidal} gives the sign.
+\end{proof}
+
+\begin{definition}[Underlying graded category]
+\label{def:graded-hom}
+% planned: DgCat.DGCategory.gradedHom
+\uses{def:dg-category}
+For a dg-category $\cA$ and $n \in \mathbb{Z}$, $\cA(X,Y)^n$ denotes the degree-$n$
+component; a morphism of degree $n$ is an element of it. This is the interface through
+which Keller's formulas are stated.
+\end{definition}
+
+\begin{example}[dg-algebras]
+\label{ex:dg-algebra}
+% planned: DgCat.DGAlgebra, DgCat.DGAlgebra.toDGCategory
+\uses{def:dg-category, lem:leibniz}
+A dg-category with one object is the same thing as a dg-algebra: a graded $k$-algebra $A$
+with a differential of degree $1$ satisfying the Leibniz rule. In particular an ordinary
+$k$-algebra $B$, concentrated in degree $0$, is a dg-category $\cA_B$ with one object.
+\end{example}
+
+\begin{example}[The dg-category of complexes]
+\label{ex:dg-complexes}
+% planned: DgCat.CochainComplex.dgCategory
+\uses{def:dg-category, def:hom-complex}
+For a $k$-algebra $B$ (more generally a $k$-linear category with the relevant coproducts),
+$\Chdg(B)$ has as objects the complexes of right $B$-modules and as hom-complexes
+$\Chdg(B)(L,M) = \Hom(L,M)$, the Hom complex of Definition~\ref{def:hom-complex}, with
+composition of graded maps. The dg-category axioms are the statement that composition of
+graded maps is a chain map for the commutator differential.
+\end{example}
+
+\begin{definition}[Opposite dg-category]
+\label{def:dg-op}
+% planned: DgCat.DGCategory.op
+\uses{def:dg-category}
+$\cA^{\op}$ has the same objects as $\cA$, hom-complexes $\cA^{\op}(X,Y) = \cA(Y,X)$, and
+composition of $f \in \cA^{\op}(Y,X)^p$ with $g \in \cA^{\op}(Z,Y)^q$ given by
+$(-1)^{pq} g f$. The sign is forced by the braiding of $\Ch(k)$: the opposite of an
+enriched category over a braided monoidal category composes through the braiding.
+\end{definition}
+
+\begin{lemma}[Double opposite]
+\label{lem:dg-op-op}
+% planned: DgCat.DGCategory.opOp
+\uses{def:dg-op}
+$(\cA^{\op})^{\op}$ is isomorphic to $\cA$ as a dg-category.
+\end{lemma}
+\begin{proof}
+The braiding of $\Ch(k)$ is a symmetry, so the two signs cancel.
+\end{proof}
+
+\begin{definition}[Tensor product of dg-categories]
+\label{def:dg-tensor}
+% planned: DgCat.DGCategory.tensor
+\notready
+\uses{def:dg-category, thm:complexes-monoidal}
+$\cA \otimes \cB$ has objects $\mathrm{obj}(\cA) \times \mathrm{obj}(\cB)$ and
+hom-complexes $(\cA \otimes \cB)((X,Y),(X',Y')) = \cA(X,X') \otimes \cB(Y,Y')$ with the
+natural compositions and units. Needed for bimodules (Chapter~\ref{ch:beyond}); not on the
+critical path of the first phase.
+\end{definition}

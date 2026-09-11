@@ -1,0 +1,125 @@
+\chapter{dg-functors, cycles, homology, and quasi-equivalences}
+\label{ch:functors}
+
+This chapter is Keller \S\S 2.2--2.3. The two lax monoidal structures are small and
+prerequisite to everything else; they are the first pull requests.
+
+\begin{lemma}[$\Zz$ is lax monoidal]
+\label{lem:Z0-lax-monoidal}
+% planned: DgCat.cyclesZeroLaxMonoidal
+\uses{thm:complexes-monoidal, def:lax-monoidal}
+The functor $\Zz : \Ch(k) \to \Mod k$, sending a complex to the kernel of
+$d : V^0 \to V^1$, is lax monoidal: the tensor product of two $0$-cycles is a $0$-cycle,
+and the unit $k \to \Zz(k)$ is the identity.
+\end{lemma}
+\begin{proof}
+For $v \in \Zz V$, $w \in \Zz W$ one has $d(v \otimes w) = dv \otimes w + v \otimes dw = 0$;
+coherence reduces to the coherence of $\Ch(k)$.
+\end{proof}
+
+\begin{lemma}[$\Hz$ is lax monoidal]
+\label{lem:H0-lax-monoidal}
+% planned: DgCat.homologyZeroLaxMonoidal
+\uses{thm:complexes-monoidal, def:lax-monoidal, lem:Z0-lax-monoidal}
+The functor $\Hz : \Ch(k) \to \Mod k$ is lax monoidal: the map
+$\Zz V \otimes \Zz W \to \Zz(V \otimes W)$ descends to
+$\Hz V \otimes \Hz W \to \Hz(V \otimes W)$ because a boundary tensored with a cycle is a
+boundary.
+\end{lemma}
+\begin{proof}
+\uses{lem:Z0-lax-monoidal}
+If $v = du$ then $v \otimes w = d(u \otimes w)$ for $w$ a cycle, and symmetrically.
+Well-definedness on the tensor product of quotients follows from right-exactness of
+$\otimes$.
+\end{proof}
+
+\begin{definition}[The categories $\Zz(\cA)$ and $\Hz(\cA)$]
+\label{def:Z0-H0}
+% planned: DgCat.Z0, DgCat.H0
+\uses{def:dg-category, lem:Z0-lax-monoidal, lem:H0-lax-monoidal, thm:transport-enrichment, thm:forget-enrichment}
+For a dg-category $\cA$, $\Zz(\cA)$ is the $k$-linear category with the objects of $\cA$
+and $\Zz(\cA)(X,Y) = \Zz(\cA(X,Y))$, obtained by transporting the enrichment along $\Zz$
+and forgetting it; $\Hz(\cA)$ is obtained in the same way from $\Hz$. There is a canonical
+functor $\Zz(\cA) \to \Hz(\cA)$, the identity on objects.
+\end{definition}
+
+\begin{lemma}[$\Zz$ and $\Hz$ of the dg-category of complexes]
+\label{lem:Z0-H0-complexes}
+% planned: DgCat.Z0CochainComplexIso, DgCat.H0CochainComplexIso
+\uses{def:Z0-H0, ex:dg-complexes, def:homotopy-category}
+For a $k$-algebra $B$ there are isomorphisms of categories
+$\Zz(\Chdg(B)) \cong \Ch(B)$ and $\Hz(\Chdg(B)) \cong \Hcat(B)$: degree-$0$ cycles of the
+Hom complex are the chain maps, and degree-$0$ boundaries are the null-homotopic ones.
+\end{lemma}
+\begin{proof}
+\uses{def:hom-complex}
+Unwind Definition~\ref{def:hom-complex} in degree $0$ and $-1$.
+\end{proof}
+
+\begin{definition}[dg-functors]
+\label{def:dg-functor}
+% planned: DgCat.DGFunctor
+\uses{def:dg-category, def:enriched-functor}
+A dg-functor $F : \cA \to \cB$ is a $\Ch(k)$-enriched functor: a map on objects and chain
+maps $\cA(X,Y) \to \cB(FX,FY)$ compatible with composition and units. dg-functors compose,
+and dg-categories with dg-functors form the category $\dgcat$.
+\end{definition}
+
+\begin{lemma}[Induced functors on $\Zz$ and $\Hz$]
+\label{lem:dg-functor-Z0-H0}
+% planned: DgCat.DGFunctor.Z0map, DgCat.DGFunctor.H0map
+\uses{def:dg-functor, def:Z0-H0}
+A dg-functor $F$ induces $k$-linear functors $\Zz(F) : \Zz(\cA) \to \Zz(\cB)$ and
+$\Hz(F) : \Hz(\cA) \to \Hz(\cB)$, functorially in $F$.
+\end{lemma}
+\begin{proof}
+\uses{thm:transport-enrichment}
+Transport of enrichment is functorial in enriched functors.
+\end{proof}
+
+\begin{definition}[The complex of morphisms between dg-functors]
+\label{def:dg-nat-trans-complex}
+% planned: DgCat.DGFunctor.homComplex
+\uses{def:dg-functor, def:graded-hom}
+For dg-functors $F, G : \cA \to \cB$, $\Hom(F,G)$ is the complex whose degree-$n$
+component consists of the families $\varphi_X \in \cB(FX,GX)^n$ with
+$(Gf)\varphi_X = \varphi_Y (Ff)$ for all $f \in \cA(X,Y)$, with differential induced from
+$\cB(FX,GX)$. Morphisms of dg-functors are the elements of $\Zz \Hom(F,G)$.
+\end{definition}
+
+\begin{definition}[The dg-category of dg-functors]
+\label{def:dg-functor-category}
+% planned: DgCat.dgFunctorCategory
+\uses{def:dg-nat-trans-complex, def:dg-category}
+$\Hom(\cA,\cB)$ is the dg-category whose objects are the dg-functors $\cA \to \cB$ and
+whose hom-complexes are the complexes $\Hom(F,G)$ of
+Definition~\ref{def:dg-nat-trans-complex}. This is the internal Hom of $\dgcat$; only its
+existence as a dg-category is needed in the first phase.
+\end{definition}
+
+\begin{definition}[Quasi-equivalence]
+\label{def:quasi-equivalence}
+% planned: DgCat.DGFunctor.IsQuasiEquivalence
+\uses{def:dg-functor, lem:dg-functor-Z0-H0}
+A dg-functor $F : \cA \to \cB$ is a quasi-equivalence if each $\cA(X,Y) \to \cB(FX,FY)$
+is a quasi-isomorphism of complexes and $\Hz(F) : \Hz(\cA) \to \Hz(\cB)$ is an
+equivalence of categories.
+\end{definition}
+
+\begin{lemma}[Quasi-equivalences compose]
+\label{lem:quasi-equivalence-comp}
+% planned: DgCat.DGFunctor.IsQuasiEquivalence.comp
+\uses{def:quasi-equivalence}
+The identity is a quasi-equivalence and a composite of quasi-equivalences is a
+quasi-equivalence.
+\end{lemma}
+\begin{proof}
+Quasi-isomorphisms compose; equivalences compose; $\Hz$ is functorial.
+\end{proof}
+
+\begin{remark}
+\uses{def:quasi-equivalence, def:dg-tensor, def:dg-functor-category}
+Neither the tensor product nor the internal Hom respects quasi-equivalences (Keller \S 2.3).
+This is the reason the homotopy theory of dg-categories (Chapter~\ref{ch:beyond}) is hard,
+and the reason the first phase stops at the derived category of a single dg-category.
+\end{remark}

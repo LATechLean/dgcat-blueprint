@@ -1,0 +1,63 @@
+\chapter{Beyond the first phase}
+\label{ch:beyond}
+
+The nodes in this chapter are not deliverables of the first phase. They record the road
+ahead so that the design choices above are made with them in view; each is marked as not
+ready.
+
+\begin{theorem}[Triangulated structure]
+\label{thm:derived-triangulated}
+\notready
+\uses{def:dg-derived-category, prop:resolutions, def:dg-module-shift}
+$\Ch(\cA)$ with the split conflations is a Frobenius category whose stable category is
+$\Hcat(\cA)$; the suspension is $M \mapsto M[1]$, and $\Dcat(\cA)$ inherits a triangulated
+structure in which short exact sequences of dg-modules give triangles (Keller, Lemma 3.3).
+Stretch goal of the first phase.
+\end{theorem}
+
+\begin{theorem}[Model structures on dg-modules]
+\label{thm:model-structures}
+\notready
+\uses{def:dg-module-cat, def:dg-qis, def:cofibrant-fibrant}
+$\Ch(\cA)$ carries a projective and an injective Quillen model structure with weak
+equivalences the quasi-isomorphisms (Keller, Theorem 3.2). Both are cofibrantly generated;
+this is where the recognition theorem for cofibrantly generated model categories, developed
+in the PI's parallel project, enters.
+\end{theorem}
+
+\begin{theorem}[Compact generators]
+\label{thm:compact-generators}
+\notready
+\uses{thm:derived-triangulated, cor:derived-homs}
+$\Dcat(\cA)$ has arbitrary coproducts and the shifted representables $X^{\wedge}[n]$ form a
+set of compact generators; the compact objects are the perfect dg-modules
+(Keller, Corollary 3.7).
+\end{theorem}
+
+\begin{definition}[Bimodules and tensor functors]
+\label{def:bimodules}
+\notready
+\uses{def:dg-tensor, def:dg-module}
+An $\cA$-$\cB$-bimodule is a dg-module over $\cA^{\op} \otimes \cB$; it induces an adjoint
+pair between $\Ch(\cA)$ and $\Ch(\cB)$ whose derived functors relate $\Dcat(\cA)$ and
+$\Dcat(\cB)$ (Keller \S 3.8).
+\end{definition}
+
+\begin{theorem}[dg Morita equivalence]
+\label{thm:dg-morita}
+\notready
+\uses{def:bimodules, thm:compact-generators, def:quasi-equivalence}
+Keller's Theorem 3.11 and Rickard's Theorem 3.12: characterizations of when
+$\Dcat(\cA) \simeq \Dcat(\cB)$ is induced by tensor functors, and of derived equivalence
+for algebras with homology in degree $0$.
+\end{theorem}
+
+\begin{theorem}[The homotopy category of dg-categories]
+\label{thm:dgcat-model}
+\notready
+\uses{def:quasi-equivalence, def:dg-tensor, def:dg-functor-category, thm:model-structures}
+Tabuada's cofibrantly generated model structure on $\dgcat$ with weak equivalences the
+quasi-equivalences, and Toën's description of the mapping spaces of its homotopy category
+through bimodules, giving internal Homs in $\mathrm{Ho}(\dgcat)$ (Keller \S 4). This is the
+long-range target: derived Morita theory in the unbounded setting.
+\end{theorem}

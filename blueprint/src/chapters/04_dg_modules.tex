@@ -1,0 +1,112 @@
+\chapter{dg-modules}
+\label{ch:modules}
+
+This chapter is Keller \S 3.1. Everything here is stated for right dg-modules; left
+dg-modules are right dg-modules over $\cA^{\op}$.
+
+\begin{definition}[Right dg-modules]
+\label{def:dg-module}
+% planned: DgCat.DGModule
+\uses{def:dg-functor, def:dg-op, ex:dg-complexes}
+A right dg-module over a small dg-category $\cA$ is a dg-functor
+$M : \cA^{\op} \to \Chdg(k)$. Equivalently, it is a family of complexes $M(X)$ together with
+chain maps $M(Y) \otimes \cA(X,Y) \to M(X)$ compatible with composition and units.
+\end{definition}
+
+\begin{definition}[The dg-category of dg-modules]
+\label{def:dg-module-dgcat}
+% planned: DgCat.DGModule.dgCategory
+\uses{def:dg-module, def:dg-functor-category}
+$\Chdg(\cA) = \Hom(\cA^{\op}, \Chdg(k))$, the dg-category of dg-functors of
+Definition~\ref{def:dg-functor-category}. We write $\Hom(L,M)$ for its hom-complexes.
+\end{definition}
+
+\begin{definition}[The category of dg-modules]
+\label{def:dg-module-cat}
+% planned: DgCat.DGModule.category
+\uses{def:dg-module-dgcat, def:Z0-H0}
+$\Ch(\cA) = \Zz(\Chdg(\cA))$: objects are the dg-modules, morphisms are the morphisms of
+dg-functors.
+\end{definition}
+
+\begin{proposition}[$\Ch(\cA)$ is abelian]
+\label{prop:dg-module-abelian}
+% planned: DgCat.DGModule.abelian
+\uses{def:dg-module-cat}
+$\Ch(\cA)$ is an abelian category; a morphism $L \to M$ is a monomorphism (epimorphism) iff
+each component $L(X)^n \to M(X)^n$ is injective (surjective). Kernels and cokernels are
+computed objectwise and degreewise.
+\end{proposition}
+\begin{proof}
+Limits and colimits of dg-modules are computed in $\Ch(k)$ objectwise; the dg-module
+structure maps are inherited. Compare mathlib's proof that functor categories into an
+abelian category are abelian.
+\end{proof}
+
+\begin{definition}[Homology of a dg-module]
+\label{def:dg-module-homology}
+% planned: DgCat.DGModule.homologyFunctor
+\uses{def:dg-module}
+$H^n(M)$ is the functor $X \mapsto H^n(M(X))$; a morphism of dg-modules is a
+quasi-isomorphism if it induces isomorphisms on all $H^n(M(X))$.
+\end{definition}
+
+\begin{definition}[Representable dg-modules]
+\label{def:dg-representable}
+% planned: DgCat.DGModule.representable
+\uses{def:dg-module}
+For an object $X$ of $\cA$, $X^{\wedge} = \cA(?,X)$ is the right dg-module represented by $X$.
+\end{definition}
+
+\begin{lemma}[dg-Yoneda]
+\label{lem:dg-yoneda}
+% planned: DgCat.DGModule.yoneda
+\uses{def:dg-representable, def:dg-module-dgcat}
+For a dg-module $M$ and an object $X$ there is a natural isomorphism of complexes
+$\Hom(X^{\wedge}, M) \xrightarrow{\sim} M(X)$ (Keller (1)).
+\end{lemma}
+\begin{proof}
+The enriched Yoneda lemma, evaluated at the unit.
+\end{proof}
+
+\begin{definition}[Shift of dg-modules]
+\label{def:dg-module-shift}
+% planned: DgCat.DGModule.shift
+\uses{def:dg-module}
+$M[n]$ is the dg-module $Y \mapsto M(Y)[n]$, with the shifted differential
+$(-1)^n d$ on each $M(Y)$.
+\end{definition}
+
+\begin{definition}[dg-modules up to homotopy]
+\label{def:dg-module-homotopy-cat}
+% planned: DgCat.DGModule.homotopyCategory
+\uses{def:dg-module-dgcat, def:Z0-H0}
+$\Hcat(\cA) = \Hz(\Chdg(\cA))$, the category of dg-modules up to homotopy, with the
+canonical functor $\Ch(\cA) \to \Hcat(\cA)$.
+\end{definition}
+
+\begin{lemma}[Homotopy classes out of representables]
+\label{lem:dg-homotopy-yoneda}
+% planned: DgCat.DGModule.homotopyYoneda
+\uses{lem:dg-yoneda, def:dg-module-shift, def:dg-module-homotopy-cat}
+For $n \in \mathbb{Z}$ there are natural isomorphisms
+$\Hcat(\cA)(X^{\wedge}, M[n]) \cong H^n \Hom(X^{\wedge}, M) \cong H^n M(X)$ (Keller (2)).
+\end{lemma}
+\begin{proof}
+\uses{lem:dg-yoneda}
+Take $H^0$ of the isomorphism of Lemma~\ref{lem:dg-yoneda} after shifting.
+\end{proof}
+
+\begin{proposition}[dg-modules over an algebra]
+\label{prop:dg-module-ring}
+% planned: DgCat.DGModule.ringComparisonC, DgCat.DGModule.ringComparisonH
+\uses{ex:dg-algebra, def:dg-module-cat, def:dg-module-homotopy-cat, lem:Z0-H0-complexes}
+If $\cA = \cA_B$ is the one-object dg-category of a $k$-algebra $B$, then
+$\Ch(\cA) \cong \Ch(B)$, $\Chdg(\cA) \cong \Chdg(B)$ and $\Hcat(\cA) \cong \Hcat(B)$,
+and $X^{\wedge}$ for the unique object $X$ is the free module $B$ in degree $0$.
+\end{proposition}
+\begin{proof}
+\uses{lem:Z0-H0-complexes}
+A dg-functor out of a one-object dg-category concentrated in degree $0$ is a complex with a
+compatible $B$-action; unwind and apply Lemma~\ref{lem:Z0-H0-complexes}.
+\end{proof}
