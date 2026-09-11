@@ -14,6 +14,7 @@ rev = "v4.34.0-rc2"
 [[require]]
 name = "checkdecls"
 git = "https://github.com/PatrickMassot/checkdecls.git"
+rev = "master"
 
 [[lean_lib]]
 name = "DgCat"
