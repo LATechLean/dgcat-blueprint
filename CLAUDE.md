@@ -11,6 +11,12 @@ mathlib, on the PI's fork branch `dgcat`, developed in `../dev/`. **No mathemati
 is authored in this repo.** `DgCat/` is a thin shell whose only job is to import
 the fork's modules so `checkdecls` and the `\lean{}` links resolve.
 
+## Decision ledger
+
+`DECISIONS.md` is the append-only record of design, process and scope decisions.
+Consult it before touching a definition; append after the PI decides; keep open
+proposals in its last section.
+
 ## Dependency
 
 `lakefile.toml` requires mathlib from `farmanb/mathlib4` at branch `dgcat`, and
