@@ -13,9 +13,9 @@ the fork's modules so `checkdecls` and the `\lean{}` links resolve.
 
 ## Decision ledger
 
-`DECISIONS.md` is the append-only record of design, process and scope decisions.
-Consult it before touching a definition; append after the PI decides; keep open
-proposals in its last section.
+The append-only record of design, process and scope decisions is
+`../DECISIONS.md` (project root, injected into every session). Consult it before
+touching a definition; append after the PI decides.
 
 ## Dependency
 
